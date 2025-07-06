@@ -1,0 +1,24 @@
+# Rust build
+/target
+
+# SQLite DBs
+*.db
+*.sqlite
+
+# Environment files
+.env
+
+# Editor/project files
+*.swp
+*.swo
+*.idea/
+*.vscode/
+.DS_Store
+
+# Docker
+*.tar
+
+# Logs and temp
+*.log
+*.tmp
+*.bak

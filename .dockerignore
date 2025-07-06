@@ -1,0 +1,24 @@
+# Ignore build output
+/target
+
+# Ignore VCS
+.git
+.gitignore
+
+# Ignore editor/project files
+*.swp
+*.swo
+*.idea
+*.vscode
+.DS_Store
+
+# Ignore test and temp files
+*.log
+*.tmp
+*.bak
+
+# Ignore CI/CD configs (not needed in image)
+.github
+
+# Ignore local environment files
+.env 
