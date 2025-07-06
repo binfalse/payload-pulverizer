@@ -467,15 +467,28 @@ async fn validate_before_destroy_handler(
     let mut xml_reader = XmlReader::from_str(body_str);
     xml_reader.trim_text(true);
     let mut buf = Vec::new();
+    let mut has_root_element = false;
+    
     loop {
         match xml_reader.read_event_into(&mut buf) {
+            Ok(XmlEvent::Start(_)) => {
+                has_root_element = true;
+            }
             Ok(XmlEvent::Eof) => {
-                is_xml = true;
-                details.push("Valid XML detected.".to_string());
+                // Only consider it valid XML if we found a root element and reached EOF without errors
+                if has_root_element {
+                    is_xml = true;
+                    details.push("Valid XML detected.".to_string());
+                }
                 break;
             }
-            Ok(_) => {}
-            Err(_) => break,
+            Ok(_) => {
+                // Continue parsing other events
+            }
+            Err(_) => {
+                // Any parsing error means it's not valid XML
+                break;
+            }
         }
         buf.clear();
     }

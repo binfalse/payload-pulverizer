@@ -1,5 +1,7 @@
 # Payload Pulverizer
 
+![Payload Pulverizer Logo](logo.jpeg)
+
 A fun RESTful API in Rust for pulverizing, blackholing, and shredding your payloads.
 
 ## Endpoints
