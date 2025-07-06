@@ -18,6 +18,7 @@ use std::pin::Pin;
 use std::sync::Mutex;
 use std::task::{Context, Poll};
 use std::time::Instant;
+use chrono;
 
 // ASCII art for /burn endpoint
 const FIRE_ART: &str = r#"
@@ -535,6 +536,20 @@ async fn stats_handler(db: Data<Mutex<Connection>>) -> Result<impl Responder> {
     Ok(HttpResponse::Ok().json(StatsResponse { stats }))
 }
 
+#[derive(Serialize)]
+struct PingResponse {
+    status: &'static str,
+    timestamp: String,
+}
+
+async fn ping_handler() -> Result<impl Responder> {
+    let response = PingResponse {
+        status: "pong",
+        timestamp: chrono::Utc::now().to_rfc3339(),
+    };
+    Ok(HttpResponse::Ok().json(response))
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     // Parse CLI arguments
@@ -557,6 +572,7 @@ async fn main() -> std::io::Result<()> {
                 web::post().to(validate_before_destroy_handler),
             )
             .route("/stats", web::get().to(stats_handler))
+            .route("/ping", web::get().to(ping_handler))
     })
     .bind(("0.0.0.0", 8080))?
     .run()

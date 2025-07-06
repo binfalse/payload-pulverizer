@@ -10,6 +10,7 @@ A fun RESTful API in Rust for pulverizing, blackholing, and shredding your paylo
 - **POST /burn** – Burns your payload.
 - **POST /validate-before-destroy** – Checks if your payload is valid JSON, XML, or Markdown before destroying it.
 - **GET /stats** – Returns usage statistics for all endpoints.
+- **GET /ping** – Health check endpoint that returns status and timestamp.
 
 ## Build & Run
 
